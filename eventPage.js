@@ -51,7 +51,7 @@
       c.lineTo(SIZE, 0);
       c.closePath();
       c.lineWidth = 2;
-      c.strokeStyle = '#008080';
+      c.strokeStyle = '#008744';
       c.stroke();
 
     chrome.browserAction.setIcon({
