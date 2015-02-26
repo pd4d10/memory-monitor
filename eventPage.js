@@ -1,4 +1,4 @@
-(function(){
+(function () {
 
   // Draw browser action icon with HTML5 canvas
   document.write('<canvas id="canvas"></canvas>');
@@ -16,10 +16,10 @@
     availMem[i] = 1;
   }
 
-  (function draw(){
+  (function draw() {
 
     // Get available memory percent
-    chrome.system.memory.getInfo(function(info){
+    chrome.system.memory.getInfo(function (info) {
       availMem.push(info.availableCapacity / info.capacity);
       availMem.shift();
 
@@ -28,37 +28,36 @@
         title: 'Total: ' + (info.capacity / 1073741824).toFixed(2) + ' GiB\n' +
                'Available: ' + (info.availableCapacity / 1073741824).toFixed(2) + ' GiB',
       });
-    });
 
-    c.clearRect(0, 0, SIZE, SIZE);
+      c.clearRect(0, 0, SIZE, SIZE);
 
-    // Draw memory usage change
-    c.beginPath();
-      c.moveTo(0, SIZE);
-      for (var i = 0; i < SIZE; i++) {
-        c.lineTo(i, availMem[i] * SIZE);
-      }
-      c.lineTo(SIZE, SIZE);
-      c.lineWidth = 2;
-      c.fillStyle = '#66cdaa';
-      c.fill();
+      // Draw memory usage change
+      c.beginPath();
+        c.moveTo(0, SIZE);
+        for (var i = 0; i < SIZE; i++) {
+          c.lineTo(i, availMem[i] * SIZE);
+        }
+        c.lineTo(SIZE, SIZE);
+        c.lineWidth = 2;
+        c.fillStyle = '#66cdaa';
+        c.fill();
 
-    // Draw border
-    c.beginPath();
-      c.moveTo(0, 0);
-      c.lineTo(0, SIZE);
-      c.lineTo(SIZE, SIZE);
-      c.lineTo(SIZE, 0);
-      c.closePath();
-      c.lineWidth = 2;
-      c.strokeStyle = '#008744';
-      c.stroke();
+      // Draw border
+      c.beginPath();
+        c.moveTo(0, 0);
+        c.lineTo(0, SIZE);
+        c.lineTo(SIZE, SIZE);
+        c.lineTo(SIZE, 0);
+        c.closePath();
+        c.lineWidth = 2;
+        c.strokeStyle = '#008744';
+        c.stroke();
 
-    chrome.browserAction.setIcon({
-      imageData: c.getImageData(0, 0, SIZE, SIZE)
+      chrome.browserAction.setIcon({
+        imageData: c.getImageData(0, 0, SIZE, SIZE)
+      });
     });
 
     setTimeout(draw, 1000);
-
   })();
 })();
